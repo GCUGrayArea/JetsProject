@@ -6,13 +6,24 @@ public abstract class Jet {
 	private int speed;
 	private int range;
 	private int price;
+	public final double MACH = 767.27;
 	
-	private void fly() {
+	//only constructible with all fields provided
+	public Jet( String model , int speed , int range , int price ) {
+		
+		this.setModel(model) ;
+		this.setSpeed(speed) ;
+		this.setRange(range) ;
+		this.setPrice(price );
+
+	}
+
+	public void fly() {
 		System.out.printf(
 				"This %s can fly for %.1f hours at Mach %.1f." ,
 				model ,
 				(((double) this.range) / this.speed ) ,
-				this.speed / 767.27);
+				this.speed / MACH);
 	}
 
 	
@@ -30,7 +41,7 @@ public abstract class Jet {
 	}
 	
 	public double getSpeedMach() {
-		return this.getSpeed() / 767.27;
+		return this.getSpeed() / MACH;
 	}
 
 	
