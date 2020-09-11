@@ -20,7 +20,7 @@ public abstract class Jet {
 
 	public void fly() {
 		System.out.printf(
-				"This %s can fly for %.1f hours at Mach %.1f." ,
+				"This %s can fly for %.1f hours at Mach %.1f.%n" ,
 				model ,
 				(((double) this.range) / this.speed ) ,
 				this.speed / MACH);
@@ -85,5 +85,62 @@ public abstract class Jet {
 		this.price = price ;
 	
 	}
+
+	@Override
+	public int hashCode() {
+
+		final int prime = 31 ;
+		int result = 1 ;
+		long temp ;
+		temp = Double.doubleToLongBits( MACH ) ;
+		result = prime * result + ( int ) ( temp ^ ( temp >>> 32 ) ) ;
+		result = prime * result + ( ( model == null ) ? 0 : model.hashCode() ) ;
+		result = prime * result + price ;
+		result = prime * result + range ;
+		result = prime * result + speed ;
+		return result ;
+
+	}
+
+	@Override
+	public boolean equals( Object obj ) {
+
+		if ( this == obj )
+			return true ;
+		if ( obj == null )
+			return false ;
+		if ( getClass() != obj.getClass() )
+			return false ;
+		Jet other = ( Jet ) obj ;
+		if ( Double.doubleToLongBits( MACH ) != Double.doubleToLongBits( other.MACH ) )
+			return false ;
+		if ( model == null ) {
+			if ( other.model != null )
+				return false ;
+		} else if ( !model.equals( other.model ) )
+			return false ;
+		if ( price != other.price )
+			return false ;
+		if ( range != other.range )
+			return false ;
+		if ( speed != other.speed )
+			return false ;
+		return true ;
+
+	}
+
+	@Override
+	public String toString() {
+
+		return String.format(
+				"Jet [getModel()=%s, getSpeed()=%s, getRange()=%s, getPrice()=%s]" ,
+				getModel() ,
+				getSpeed() ,
+				getRange() ,
+				getPrice() ) ;
+
+	}
+	
+	
 
 }

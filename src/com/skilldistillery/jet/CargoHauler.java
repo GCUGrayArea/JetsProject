@@ -7,15 +7,29 @@ public class CargoHauler extends Jet implements ForCargo {
 	public CargoHauler( String model , int speed , int range , int price , int cargoCapacity ) {
 
 		super( model , speed , range , price ) ;
-		this.cargoCapacity = cargoCapacity ;
+		this.setCargoCapacity( cargoCapacity );
 
+	}
+
+	
+	public int getCargoCapacity() {
+	
+		return cargoCapacity ;
+	
+	}
+
+	
+	public void setCargoCapacity( int cargoCapacity ) {
+	
+		this.cargoCapacity = cargoCapacity ;
+	
 	}
 
 	public void loadCargo() {
 
 		System.out.printf(
-				"Loading up to %d pounds of cargo into the %s ." ,
-				this.cargoCapacity ,
+				"Loading up to %d pounds of cargo into the %s.%n" ,
+				this.getCargoCapacity() ,
 				this.getModel() ) ;
 
 	}
