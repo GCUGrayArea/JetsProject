@@ -109,7 +109,7 @@ public class JetsApplication {
 		//Menu option 6: dogfight!
 		for( Jet i : this.airfield.getPlanes() ) {
 			try {
-				( ( Fighter ) i ).fight();
+				( ( ForCombat ) i ).fight();
 			}
 			catch (ClassCastException e) {
 				continue;
