@@ -24,7 +24,7 @@ public class Bomber extends Jet implements ForCombat {
 	}
 	
 	public void fight() {
-		System.out.printf( "Preparing for sortie. We have up to %d pounds of bombs to drop.%n" ,
+		System.out.printf( "Bomber preparing for sortie. We have up to %d pounds of bombs to drop.%n" ,
 				this.getBombLoad() );
 	}
 
@@ -58,8 +58,8 @@ public class Bomber extends Jet implements ForCombat {
 	public String toString() {
 
 		return String.format(
-				"Bomber [bombLoad=%s, getBombLoad()=%s, getModel()=%s, getSpeed()=%s, getRange()=%s, getPrice()=%s]" ,
-				bombLoad , getBombLoad() , getModel() , getSpeed() , getRange() , getPrice() ) ;
+				"Bomber [getBombLoad()=%s, getModel()=%s, getSpeed()=%s, getRange()=%s, getPrice()=%s]" ,
+				getBombLoad() , getModel() , getSpeed() , getRange() , getPrice() ) ;
 
 	}
 

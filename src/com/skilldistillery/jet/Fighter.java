@@ -10,7 +10,9 @@ public class Fighter extends Jet implements ForCombat {
 	}
 	
 	public void fight() {
-		System.out.println( "dakka dakka dakka dakka dakka dakka dakka dakka dakka dakka dakka dakka" ) ;
+		System.out.printf(
+			"I'm a %s fighter! dakka dakka dakka dakka dakka dakka dakka dakka dakka dakka dakka dakka%n" ,
+			this.getModel() ) ;
 	}
 
 	@Override
