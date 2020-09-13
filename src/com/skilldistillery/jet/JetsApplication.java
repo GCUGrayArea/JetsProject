@@ -311,7 +311,9 @@ public class JetsApplication {
 	}
 
 	private void printPilots() {
-
+		System.out.println( "Here are the pilots assigned to this airfield: " );
+		System.out.println() ;
+		System.out.println() ;
 		for ( int i = 0 ; i < this.pilots.size() ; i++ ) {
 			System.out.printf( 
 				"%d: %s%n" ,
