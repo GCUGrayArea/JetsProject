@@ -34,4 +34,18 @@ public class CargoHauler extends Jet implements ForCargo {
 
 	}
 
+
+	@Override
+	public String toString() {
+
+		return String.format(
+			"%s Cargo Plane - Speed %d mph, range %d miles, max. cargo load %s lb. Unit Cost %d dollars" ,
+				getModel() ,
+				getSpeed() ,
+				getRange() ,
+				getCargoCapacity() ,
+				getPrice() ) ;
+
+	}
+
 }

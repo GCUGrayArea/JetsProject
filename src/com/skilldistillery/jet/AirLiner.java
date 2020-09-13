@@ -65,11 +65,11 @@ public class AirLiner extends Jet implements ForPeople {
 	public String toString() {
 
 		return String.format(
-				"AirLiner [getPassengerCapacity()=%s, getModel()=%s, getSpeed()=%s, getRange()=%s, getPrice()=%s]" ,
-				getPassengerCapacity() ,
+				"%s Airliner - Speed %d mph, range %d miles, seats %d passengers. Unit Cost %d dollars" ,
 				getModel() , 
 				getSpeed() , 
 				getRange() ,
+				getPassengerCapacity() ,
 				getPrice() ) ;
 
 	}

@@ -1,11 +1,20 @@
 package com.skilldistillery.jet;
 
+import java.util.ArrayList ;
+import java.util.InputMismatchException ;
+import java.util.List ;
 
 public class JetsApplication {
 	private AirField airfield;
+	private List<Pilot> pilots;
 	
 	public JetsApplication( String fileName ) {
 			this.airfield = new AirField( fileName );
+			this.pilots = new ArrayList<Pilot>();
+			
+			for( int i = 0 ; i < this.airfield.getPlanes().size() ; i++ ) {
+				this.pilots.add( new Pilot() );
+			}
 	}
 
 	public static void main( String[] args ) {
@@ -39,9 +48,14 @@ public class JetsApplication {
 			throw new RuntimeException("Not enough planes. The airfield must contain at least 5.");
 		}
 		
-		for ( Jet i : this.airfield.getPlanes() ) {
-			System.out.println( i ) ;
+		for ( int i = 0; i < this.airfield.getPlanes().size(); i++ ) {
+			System.out.printf(
+					"%d: %s%nPiloted by: %s%n", 
+					i + 1 ,
+					this.airfield.getPlanes().get( i ).toString() ,
+					this.pilots.get( i ).toString() );
 		}
+
 	}
 	
 	private void flyJets() {
@@ -105,30 +119,87 @@ public class JetsApplication {
 		}
 	}
 	
-	private void dogFight() {
-		//Menu option 6: dogfight!
-		for( Jet i : this.airfield.getPlanes() ) {
+	private void dogFight( java.util.Scanner kb ) {
+		//Menu option 6: dogfight! 
+		
+		//this first block makes sure there's at least one fighter or bomber.
+		//Not much of a fight without those!
+		//Other procedures will only happen if 
+		ArrayList<ForCombat> warbirds = new ArrayList<ForCombat>();
+		for ( Jet i : this.airfield.getPlanes() ) {
 			try {
-				( ( ForCombat ) i ).fight();
+				warbirds.add( (ForCombat) i );
 			}
 			catch (ClassCastException e) {
 				continue;
 			}
 		}
+		
+		if ( warbirds.size() == 0 ) { 
+			System.out.println( "No fighters or bombers - there's nothing here to fight with!" ) ;
+			return;
+		}
+		
+		if ( Math.random() > 0.5 ) {
+			//half the time, randomly selects a bomber and prepares it for a bombing run
+			ArrayList<Bomber> bombers = new ArrayList<Bomber>();
+			for( ForCombat i : warbirds ) {
+				try {
+					bombers.add( (Bomber) i );
+				}
+				catch (ClassCastException e) {
+					continue;
+				}
+			}
+			if ( bombers.size() > 0 ) {
+				bombers.get( (int) (Math.random() * bombers.size() ) ).fight();
+				return;
+			}
+		}
+		
+			//rest of the time, selects two random Fighters from the Airfield and has them shoot missiles at each other
+			ArrayList<Fighter> fighters = new ArrayList<Fighter>();
+			for( ForCombat i : warbirds ) {
+				try {
+					fighters.add( (Fighter) i );
+				}
+				catch (ClassCastException e) {
+					//non-fighters will throw this exception, which is handled by ignoring
+					//the corresponding list element and moving on
+					continue;
+				}
+			}
+			
+			if ( fighters.size() == 1 ) {
+				// no fight to be had if there's just one, so he'll have fun on his own
+				fighters.get( 0 ).fight();
+				return;
+			}
+			
+			
+			
+			Fighter red = fighters.remove( (int) ( Math.random() * fighters.size() ) );
+			Fighter blue = fighters.remove( (int) ( Math.random() * fighters.size() ) );
+			
+			red.fight(blue, kb);
+			
 	}
 	
 	private void printMainMenu() {
 		
 		System.out.println( "==================================" );
-		System.out.println( "* 1. List fleet                  *");
-		System.out.println( "* 2. Fly all jets                *");
-		System.out.println( "* 3. View fastest jet            *");
-		System.out.println( "* 4. View jet with longest range *" );
-		System.out.println( "* 5. Load all Cargo Jets         *" );
-		System.out.println( "* 6. Dogfight!                   *" );
-		System.out.println( "* 7. Add a jet to Fleet          *" );
-		System.out.println( "* 8. Remove a jet from Fleet     *" );
-		System.out.println( "* 9. Quit                        *" ) ;
+		System.out.println( "* 1. List fleet                  *" );
+		System.out.println( "* 2. Fly all jets                *" );
+		System.out.println( "* 3. Fly a specific jet          *" );
+		System.out.println( "* 4. View fastest jet            *" );
+		System.out.println( "* 5. View jet with longest range *" );
+		System.out.println( "* 6. Load all Cargo Jets         *" );
+		System.out.println( "* 7. Dogfight!                   *" );
+		System.out.println( "* 8. Add a jet to Fleet          *" );
+		System.out.println( "* 9. Remove a jet from Fleet     *" );
+		System.out.println( "* 0. View pilot roster           *" );
+		System.out.println( "* A. Hire a pilot                *" );
+		System.out.println( "* B. Quit                        *" );
 		System.out.println( "==================================" );
 		
 	}
@@ -141,52 +212,142 @@ public class JetsApplication {
 		 * result in this method being called again by the loop.
 		 */
 		
-		int menuSelection;
+		char menuSelection;
 		printMainMenu();
 		System.out.print( "What would you like to do? " ) ;
-		menuSelection = kb.nextInt();
-		kb.nextLine();
-		
+		try {
+			menuSelection = kb.nextLine().charAt( 0 );
+		}
+		catch ( StringIndexOutOfBoundsException e ) {
+			System.out.println( "No input provided. Please select an option to do something, or enter B to quit" ) ;
+			return true;
+		}
+
 		switch ( menuSelection ) {
-			case 9:
+			case 'B':
 				//User story #11: quit exits the program
 				System.out.println( "Come back soon!" ) ;
 				return false;
-			case 1:
+			case '1':
 				this.printJets();
 				break;
-			case 2:
+			case '2':
 				this.flyJets();
 				break;
-			case 3:
+			case '3':
+				this.flySpecificJet( kb );
+				break;
+			case '4':
 				this.fastestJet();
 				break;
-			case 4:
+			case '5':
 				this.longestRange();
 				break;
-			case 5:
+			case '6':
 				this.loadCargoPlanes();
 				break;
-			case 6:
-				this.dogFight();
+			case '7':
+				this.dogFight( kb );
 				break;
-			case 7:
+			case '8':
 				this.airfield.addJet( kb );
 				break;
-			case 8:
+			case '9':
 				this.airfield.removeJet( kb );
+			case '0':
+				this.printPilots();
+				break;
+			case 'A':
+				this.addPilot(kb);
 				break;
 			default:
 				System.out.println( "Input not recognized. Select a valid option." ) ;
 		}
 			return true;
 		
+	}
+
+	private void addPilot( java.util.Scanner kb ) {
+		int randOrNot = 0;
+		String fName = null;
+		String lName = null;
+		int age = 0;
 		
+		System.out.println( "Are you hiring :");
+		System.out.println( "1. a random pilot, or" );
+		System.out.println( "2. Someone specific?" );
 		
+		try {
+			randOrNot = kb.nextInt();
+			kb.nextLine(); //clear buffer
+			if ( randOrNot < 1 || randOrNot > 2 ) {
+				throw new InputMismatchException();
+			} //ensures exception is thrown for ANY invalid input, whether non-number or wrong number
+		}
+		catch ( InputMismatchException e ) {
+			System.out.println( "Input not recognized. Please select a valid menu option.");
+			this.addPilot( kb );
+		}
+		switch( randOrNot ) {
+			case 1:
+				this.pilots.add( new Pilot() );
+				break;
+			case 2:
+				System.out.print( "Please enter the new pilot's first name: " );
+				fName = kb.nextLine();
+				System.out.print( "Now enter their last name: " );
+				lName = kb.nextLine();
+				System.out.print( "And what is their current age? " );
+				age = kb.nextInt();
+				kb.nextLine();
+				this.pilots.add( new Pilot( fName , lName , age ) );
+				break;	
+			}
+		System.out.printf(
+				"Added pilot: %s%n",
+				this.getPilots().get( this.getPilots().size() - 1 ) );
+				//this will always be the pilot we just added
+	}
+
+	private void printPilots() {
+
+		for ( int i = 0 ; i < this.pilots.size() ; i++ ) {
+			System.out.printf( 
+				"%d: %s%n" ,
+				i+1 ,
+				this.pilots.get( i ) );
+		}
 	}
 	
-	
-	
-	
+	private List<Pilot> getPilots() {
+		return this.pilots;
+	}
+
+	private void flySpecificJet( java.util.Scanner kb ) {
+		int choice;
+		
+		System.out.println( "Here are the planes we have here:" ) ;
+		System.out.println() ;
+		this.printJets();
+		System.out.print( "Which jet would you like to fly? ");
+		try {
+			choice = kb.nextInt() - 1;
+			kb.nextLine();
+			
+			this.airfield.getPlanes().get( choice ).fly();
+			
+		}
+		catch ( InputMismatchException e) {
+			System.out.println( "Input not recognized. Please enter a *number* for a menu option." );
+			System.out.println() ;
+			kb.nextLine();
+			this.flySpecificJet(kb);
+		}
+		catch ( IndexOutOfBoundsException e ) {
+			System.out.printf(
+					"We only have %d planes here. Please select one we actually have.%n%n" ,
+					this.airfield.getPlanes().size() ) ;
+		}
+	}
 
 }

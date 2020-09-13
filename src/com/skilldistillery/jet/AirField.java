@@ -90,7 +90,6 @@ public class AirField {
 
 	}
 
-	
 	public List < Jet > getPlanes() {
 	
 		return this.planes ;
@@ -147,19 +146,37 @@ public class AirField {
 				System.out.print( "What is its max bomb load? " );
 				typeSpecific = kb.nextInt();
 				kb.nextLine();
-				this.planes.add( new Bomber( model, speed, range, cost, typeSpecific ) );
+				this.planes.add(
+					new Bomber(
+						model,
+						speed,
+						range,
+						cost,
+						typeSpecific ) );
 				break;
 			case 3:
 				System.out.print( "What is its maximum cargo weight? " );
 				typeSpecific = kb.nextInt();
 				kb.nextLine();
-				this.planes.add( new CargoHauler( model, speed, range, cost, typeSpecific ) );
+				this.planes.add(
+						new CargoHauler( 
+							model,
+							speed,
+							range,
+							cost,
+							typeSpecific ) );
 				break;
 			case 4:
 				System.out.print( "What is its passenger capacity? " );
 				typeSpecific = kb.nextInt();
 				kb.nextLine();
-				this.planes.add( new AirLiner( model, speed, range, cost , typeSpecific ) );
+				this.planes.add(
+					new AirLiner( 
+						model, 
+						speed, 
+						range, 
+						cost , 
+						typeSpecific ) );
 				break;
 		}
 		
@@ -225,7 +242,7 @@ public class AirField {
 				input = kb.nextLine();
 			}
 		}
-		
+
 	}
 
 }

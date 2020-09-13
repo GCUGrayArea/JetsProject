@@ -21,6 +21,8 @@ The specific planes are loaded from a text file as specified, instantiated based
   - Implemented for all of the classes that extend `Jet`.
 * Primitive-type wrapper classes
   - `Integer.parseInt()` is used in `AirField.removeJet()` to check whether the user's input works as a number, throw an exception if not (which causes the input to be treated as a string) and remove a specified index of the `ArrayList` field `planes` if the parse is successful.
+* Tail Calling
+  - `Fighter.fight()` is overloaded to account for variations in the number of fighters present. If only one is present it will just print a string identifying the fighter, but if multiple fighters are present when it is called by `JetsProject.dogFight()` a simulated missile will be fired and (if it misses the target), the target's own `fight()` method will be called with the original firing plane as a target (i.e. it has a chance to shoot back). By passing the original calling `Fighter` as the parameter to its target's own `fight()` method repeatedly until one plane is hit, all the code for the dogfight can be squeezed into a single readable method.
 
 ###How to Run
 

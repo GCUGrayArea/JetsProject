@@ -1,9 +1,9 @@
 package com.skilldistillery.jet;
 
-
 public class Bomber extends Jet implements ForCombat {
 
 	private int bombLoad;
+	
 	public Bomber( String model , int speed , int range , int price, int bombLoad ) {
 
 		super( model , speed , range , price ) ;
@@ -24,8 +24,10 @@ public class Bomber extends Jet implements ForCombat {
 	}
 	
 	public void fight() {
-		System.out.printf( "Bomber preparing for sortie. We have up to %d pounds of bombs to drop.%n" ,
-				this.getBombLoad() );
+		
+		System.out.printf( "%s bomber preparing for sortie. We have up to %d pounds of bombs to drop.%n" ,
+			this.getModel() ,
+			this.getBombLoad() );
 	}
 
 	@Override
@@ -58,9 +60,12 @@ public class Bomber extends Jet implements ForCombat {
 	public String toString() {
 
 		return String.format(
-				"Bomber [getBombLoad()=%s, getModel()=%s, getSpeed()=%s, getRange()=%s, getPrice()=%s]" ,
-				getBombLoad() , getModel() , getSpeed() , getRange() , getPrice() ) ;
-
+				"%s Bomber - Speed %d mph, range %d miles, max. bomb load %s lb. Unit Cost %d dollars" ,
+				getModel() ,
+				getSpeed() ,
+				getRange() ,
+				getBombLoad() ,
+				getPrice() ) ;
 	}
 
 }

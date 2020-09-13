@@ -1,20 +1,19 @@
 package com.skilldistillery.jet;
 
-
 public abstract class Jet {
 	private String model;
 	private int speed;
 	private int range;
 	private int price;
-	public final double MACH = 767.27;
+	private static final double MACH = 767.27;
 	
 	//only constructible with all fields provided
 	public Jet( String model , int speed , int range , int price ) {
 		
-		this.setModel(model) ;
-		this.setSpeed(speed) ;
-		this.setRange(range) ;
-		this.setPrice(price );
+		this.setModel( model ) ;
+		this.setSpeed( speed ) ;
+		this.setRange( range ) ;
+		this.setPrice( price );
 
 	}
 
@@ -112,8 +111,6 @@ public abstract class Jet {
 		if ( getClass() != obj.getClass() )
 			return false ;
 		Jet other = ( Jet ) obj ;
-		if ( Double.doubleToLongBits( MACH ) != Double.doubleToLongBits( other.MACH ) )
-			return false ;
 		if ( model == null ) {
 			if ( other.model != null )
 				return false ;
