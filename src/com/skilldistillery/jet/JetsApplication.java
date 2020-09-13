@@ -254,6 +254,7 @@ public class JetsApplication {
 				break;
 			case '9':
 				this.airfield.removeJet( kb );
+				break;
 			case '0':
 				this.printPilots();
 				break;

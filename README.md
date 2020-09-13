@@ -14,7 +14,7 @@ The specific planes are loaded from a text file as specified, instantiated based
 * I/O Streams
   - The planes for the default array are loaded from `planes.txt` at runtime using `FileReader` and `BufferedReader` instances and the `BufferedReader`'s `readLine()` method inside a loop, as covered in class this week. Modifying the constructor call in `JetsApplication`'s `main()` method will allow other filenames to be specified if desired.
 * Exception Handling
-  - `try-catch` blocks are used in `AirField`'s `removeJet()` method to distinguish between input types when the user provides keyboard input (via a `NumberFormatException` that indicates whether the attempt to parse the input as an `int` failed, in which case the input is read as a `String`), and to inform the user (with an `OutOfBoundsException`) when they've entered a number that would correspond to an aircraft outside the `ArrayList`.
+  - `try-catch` blocks are used in `AirField`'s `removeJet()` method to distinguish between input types when the user provides keyboard input (via a `NumberFormatException` that indicates whether the attempt to parse the input as an `int` failed, in which case the input is read as a `String`), and to inform the user (with an `OutOfBoundsException`) when they've entered a number that would correspond to an aircraft outside the `ArrayList`. They're also used to handle empty input in the main menu that would otherwise crash the program, and in menus in general to request input again if an invalid option is selected. 
 * The `List` Interface
   - An `ArrayList` (which implements `List`) is used to store the planes initially read from `planes.txt`, and to add new planes and remove existing ones as the user instructs.
 * Custom `equals()` and `hashCode()` methods
