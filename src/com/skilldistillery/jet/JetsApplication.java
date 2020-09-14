@@ -187,20 +187,20 @@ public class JetsApplication {
 	
 	private void printMainMenu() {
 		
-		System.out.println( "==================================" );
-		System.out.println( "* 1. List fleet                  *" );
-		System.out.println( "* 2. Fly all jets                *" );
-		System.out.println( "* 3. Fly a specific jet          *" );
-		System.out.println( "* 4. View fastest jet            *" );
-		System.out.println( "* 5. View jet with longest range *" );
-		System.out.println( "* 6. Load all Cargo Jets         *" );
-		System.out.println( "* 7. Dogfight!                   *" );
-		System.out.println( "* 8. Add a jet to Fleet          *" );
-		System.out.println( "* 9. Remove a jet from Fleet     *" );
-		System.out.println( "* 0. View pilot roster           *" );
-		System.out.println( "* A. Hire a pilot                *" );
-		System.out.println( "* B. Quit                        *" );
-		System.out.println( "==================================" );
+		System.out.println( " ================================ " );
+		System.out.println( "/ 1. List fleet                  \\" );
+		System.out.println( "\\ 2. Fly all jets                /" );
+		System.out.println( "/ 3. Fly a specific jet          \\" );
+		System.out.println( "\\ 4. View fastest jet            /" );
+		System.out.println( "/ 5. View jet with longest range \\" );
+		System.out.println( "\\ 6. Load all Cargo Jets         /" );
+		System.out.println( "/ 7. Dogfight!                   \\" );
+		System.out.println( "\\ 8. Add a jet to Fleet          /" );
+		System.out.println( "/ 9. Remove a jet from Fleet     \\" );
+		System.out.println( "\\ 0. View pilot roster           /" );
+		System.out.println( "/ A. Hire a pilot                \\" );
+		System.out.println( "\\ B. Quit                        /" );
+		System.out.println( " ================================ " );
 		
 	}
 	
@@ -350,6 +350,7 @@ public class JetsApplication {
 			System.out.printf(
 					"We only have %d planes here. Please select one we actually have.%n%n" ,
 					this.airfield.getPlanes().size() ) ;
+			this.flySpecificJet(kb);
 		}
 	}
 
