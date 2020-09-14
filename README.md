@@ -10,7 +10,7 @@ The specific planes are loaded from a text file as specified, instantiated based
 
 ### Topics
 * Interfaces
-  - Apart from Fighter, each specific subclass of Jet implements an interface for its specific role as an aircraft (a single method for whether it gets loaded with cargo, flies with passengers or fights/drops bombs).
+  - Each specific subclass of Jet implements an interface for its specific role as an aircraft (a single method for whether it gets loaded with cargo, flies with passengers or fights/drops bombs). Apart from fighter, each subclass also implements a unique field with data relevant to that role.
 * I/O Streams
   - The planes for the default array are loaded from `planes.txt` at runtime using `FileReader` and `BufferedReader` instances and the `BufferedReader`'s `readLine()` method inside a loop, as covered in class this week. Modifying the constructor call in `JetsApplication`'s `main()` method will allow other filenames to be specified if desired.
 * Exception Handling
